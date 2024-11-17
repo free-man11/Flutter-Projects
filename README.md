@@ -32,8 +32,6 @@ A mobile application designed for ordering food from a variety of restaurants an
 ### 2. **NFT App Project**
 An experimental Flutter app that integrates with NFT markets and wallets to display and interact with digital collectibles.
 
-### 3. **Waakye Business App**
-An app designed for a local food business that allows users to place orders for popular local dishes like Waakye, rice, chicken, fish, and yam chips.
 
 ## Technologies Used
 
@@ -87,4 +85,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-This README gives a clear, well-structured overview of your repository, including details about the projects, how to get started, and how others can contribute. You can modify it based on your specific projects and their functionalities.
+
