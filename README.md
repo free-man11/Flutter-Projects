@@ -1,6 +1,4 @@
-Here's a simple but effective README template for your **Flutter Projects** repository:
 
----
 
 # Flutter Projects
 
