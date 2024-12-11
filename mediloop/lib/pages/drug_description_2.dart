@@ -1,12 +1,25 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, avoid_print, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:mediloop/widgets/detail_card.dart';
-import 'package:mediloop/widgets/schedule_card.dart';
+import 'package:mediloop/widgets/drugdetails_Cards_Tiles.dart';
+import 'package:mediloop/widgets/drugdetails_Schedule_Card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class DrugDescription extends StatelessWidget {
-  const DrugDescription({super.key});
+class DrugDescription2 extends StatefulWidget {
+  const DrugDescription2({super.key});
+
+  @override
+  State<DrugDescription2> createState() => _DrugDescriptionState();
+}
+
+class _DrugDescriptionState extends State<DrugDescription2> {
+  // TIME PICKER
+  void _showTimePicker() {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +101,7 @@ class DrugDescription extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'Roaccutane 30mg',
+                          'Nomotears Eye Drops',
                           style: TextStyle(
                             color: Color(0xFF222329),
                             fontSize: 24,
@@ -119,13 +132,21 @@ class DrugDescription extends StatelessWidget {
                         SizedBox(height: 10),
                         Row(
                           children: [
-                            ScheduleCard(time: '07:00-09:00'),
+                            GestureDetector(
+                              // TIME PICKER
+                              onTap: _showTimePicker,
+                              child: ScheduleCard(time: '07:00-09:00'),
+                            ),
                             SizedBox(width: 20),
-                            ScheduleCard(time: '19:00-21:00'),
+                            GestureDetector(
+                              // TIME PICKER
+                              onTap: _showTimePicker,
+                              child: ScheduleCard(time: '19:00-21:00'),
+                            ),
                           ],
                         ),
                         SizedBox(height: 15),
-                        DetailsCard(),
+                        CardsTiles(),
                       ],
                     ),
                   ),
@@ -215,43 +236,55 @@ class DrugDescription extends StatelessWidget {
                     padding:
                         const EdgeInsets.only(top: 92, left: 11, bottom: 14),
                     clipBehavior: Clip.antiAlias,
-                    decoration: ShapeDecoration(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                       color: Color(0xFF3853E0),
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1, color: Color(0xFFD9D9D9)),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: [
-                        SizedBox(
-                          width: 188,
-                          height: 26,
-                          child: Text(
-                            'Possible side effects',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Transform.scale(
+                            scale: 1.5,
+                            child: Image.asset(
+                              'lib/assets/flowers.png', // Path to your image
+                              width: 400, // Adjust width
+                              height: 400, // Adjust height
                             ),
                           ),
                         ),
-                        const SizedBox(height: 13),
-                        SizedBox(
-                          width: 144,
-                          child: Text(
-                            'Learn more about this medication, its side effect',
-                            style: TextStyle(
-                              color: Color(0xFFD9D9D9),
-                              fontSize: 11,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: SizedBox(
+                            width: 188,
+                            height: 26,
+                            child: Text(
+                              'Possible side effects',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                              overflow: TextOverflow
+                                  .fade, // Adds "..." at the cutoff point
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 35),
+                          child: SizedBox(
+                            width: 144,
+                            child: Text(
+                              'Learn more about this medication, its side effect',
+                              style: TextStyle(
+                                color: Color(0xFFD9D9D9),
+                                fontSize: 11,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
                             ),
                           ),
                         ),

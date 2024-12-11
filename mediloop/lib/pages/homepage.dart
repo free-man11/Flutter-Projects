@@ -32,48 +32,44 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: _pages[_selectedIndex],
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(
-              bottom: 5, left: 5), // Add padding from the bottom
-          child: SafeArea(
-            child: GNav(
-              selectedIndex: _selectedIndex, // Keeps track of the selected tab
-              tabBorderRadius: 20,
-              onTabChange: _navigationBottomBar, // Update tab on selection
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-              color:
-                  const Color.fromARGB(255, 6, 3, 3), // Unselected item color
-              activeColor: Colors.black, // Selected item color
-              tabActiveBorder: Border.all(
-                  color: Colors.black, width: 1), // tab button border
-              duration: Duration(milliseconds: 500),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(
+            bottom: 5, left: 5), // Add padding from the bottom
+        child: SafeArea(
+          child: GNav(
+            selectedIndex: _selectedIndex, // Keeps track of the selected tab
+            tabBorderRadius: 20,
+            onTabChange: _navigationBottomBar, // Update tab on selection
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+            color: const Color.fromARGB(255, 6, 3, 3), // Unselected item color
+            activeColor: Colors.black, // Selected item color
+            tabActiveBorder:
+                Border.all(color: Colors.black, width: 1), // tab button border
+            duration: Duration(milliseconds: 500),
 
-              gap: 8, // Space between icon and text
-              tabs: [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Home',
-                ),
-                GButton(
-                  icon: Icons.calendar_today,
-                  text: 'Calendar',
-                ),
-                GButton(
-                  icon: Icons.add,
-                  text: 'Drug',
-                ),
-                GButton(
-                  icon: Icons.person,
-                  text: 'Profile',
-                ),
-              ],
-            ),
+            gap: 8, // Space between icon and text
+            tabs: [
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              ),
+              GButton(
+                icon: Icons.calendar_today,
+                text: 'Calendar',
+              ),
+              GButton(
+                icon: Icons.add,
+                text: 'Drug',
+              ),
+              GButton(
+                icon: Icons.person,
+                text: 'Profile',
+              ),
+            ],
           ),
         ),
       ),

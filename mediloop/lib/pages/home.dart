@@ -1,308 +1,189 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:mediloop/pages/drug_description.dart';
-import 'package:mediloop/widgets/buttom_widget.dart';
-import 'package:mediloop/widgets/profile_icon.dart';
+import 'package:mediloop/widgets/home_Drop_Down_Filter.dart';
+import 'package:mediloop/widgets/home_Headers.dart';
+import 'package:mediloop/widgets/home_Profile_icon.dart';
+import 'package:mediloop/widgets/home_ReminderCard.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedDayIndex = 3;
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 21),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Section: Top Row (Profile Icon and Placeholder Button)
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ProfileIcon(initials: 'PF'),
-                PlaceholderButton(),
-              ],
-            ),
-            SizedBox(height: 10),
-
-            // Section: Date and Title
-            Text(
-              'January 3',
-              style: TextStyle(
-                color: Color(0xFF979AA7),
-                fontSize: 20,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            SizedBox(height: 5),
-            Text(
-              'Today reminders',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 10),
-
-            // Section: Days of the Week
-            _buildDaysOfWeek(),
-            SizedBox(height: 8),
-
-            // Section: Dates with Highlighted Selection
-            _buildDateSelector(),
-            SizedBox(height: 20),
-
-            // Section: Headers for Time and Medication
-            _buildHeaders(context),
-            SizedBox(height: 12),
-
-            // Reminder Items
-            _buildReminderRow(
-              context: context,
-              time: '7:00',
-              period: 'AM',
-              medication: 'Carsil 35mg',
-              dose: '2 tablets',
-              color: Color(0xFF769BF0),
-              isCompleted: true,
-            ),
-            SizedBox(height: 10),
-
-            _buildReminderRow(
-              context: context,
-              time: '12:00',
-              period: 'PM',
-              medication: 'CardioActive 20ml',
-              dose: '20 drops',
-              color: Color(0xFFFF9267),
-              isCompleted: true,
-            ),
-            SizedBox(height: 10),
-
-            _buildReminderRow(
-              context: context,
-              time: '6:00',
-              period: 'PM',
-              medication: 'Carsil 35mg',
-              dose: '2 tablets',
-              color: Color(0xFFBBCBF1),
-              isCompleted: true,
-            ),
-            SizedBox(height: 30),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // Helper: Days of the Week
-  Widget _buildDaysOfWeek() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-          .map(
-            (day) => Text(
-              day,
-              style: TextStyle(
-                color: Color(0xFFA5A8B6),
-                fontSize: 15,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  // Helper: Date Selector
-  Widget _buildDateSelector() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: List.generate(7, (index) {
-        bool isSelected = index == 3;
-        return Container(
-          alignment: Alignment.center,
-          width: 26,
-          height: 26,
-          decoration: BoxDecoration(
-            color: isSelected ? Color(0xFF6085EA) : Colors.transparent,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Text(
-            '${index + 1}',
-            style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
-              fontSize: 15,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        );
-      }),
-    );
-  }
-
-  // Helper: Headers
-  Widget _buildHeaders(BuildContext context) {
-    return Row(
+    return ListView(
       children: [
-        Text(
-          'Time',
-          style: TextStyle(
-            color: Color(0xFFA5A8B6),
-            fontSize: 15,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        SizedBox(width: 10),
-        Text(
-          'Medication',
-          style: TextStyle(
-            color: Color(0xFFA5A8B6),
-            fontSize: 15,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        Spacer(),
-        _buildDropdown(),
-      ],
-    );
-  }
-
-  // Helper: Dropdown
-  Widget _buildDropdown() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: Color(0xFFF3F3F3),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        children: [
-          Text(
-            'all',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(width: 8),
-          Icon(Icons.arrow_downward_sharp),
-        ],
-      ),
-    );
-  }
-
-  // Helper: Reminder Row
-  Widget _buildReminderRow({
-    required BuildContext context,
-    required String time,
-    required String period,
-    required String medication,
-    required String dose,
-    required Color color,
-    required bool isCompleted,
-  }) {
-    return SizedBox(
-      width: 333,
-      height: 59,
-      child: Stack(
-        children: [
-          // Time display
-          Positioned(
-            left: 0,
-            top: 8,
-            child: Text.rich(
-              TextSpan(
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 21),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextSpan(
-                    text: '$time\n',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                    ),
+                  ProfileIcon(initials: 'PF'),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
                   ),
-                  TextSpan(
-                    text: period,
-                    style: TextStyle(
-                      color: Color(0xFFA5A8B6),
-                      fontSize: 15,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFEAEDEE),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/add',
+                          arguments: {'showBackButton': true},
+                        );
+                      },
+                      child: Icon(Icons.add, size: 24),
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-          // Medication details with GestureDetector
-          Positioned(
-            left: 84,
-            top: 0,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DrugDescription(),
-                  ),
-                );
-              },
-              child: Container(
-                width: 249,
-                height: 59,
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      medication,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                        decoration: isCompleted
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                      ),
-                    ),
-                    Text(
-                      dose,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                        decoration: isCompleted
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                      ),
-                    ),
-                  ],
-                ),
+              SizedBox(height: 10),
+              Headers(date: 'January 3', title: "Today's Reminder"),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+                    .map((day) => Text(
+                          day,
+                          style: TextStyle(
+                            color: Color(0xFFA5A8B6),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ))
+                    .toList(),
               ),
-            ),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(7, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedDayIndex = index;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 26,
+                      height: 26,
+                      decoration: BoxDecoration(
+                        color: _selectedDayIndex == index
+                            ? Color(0xFF6085EA)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        '${index + 1}',
+                        style: TextStyle(
+                          color: _selectedDayIndex == index
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(
+                    'Time',
+                    style: TextStyle(
+                      color: Color(0xFFA5A8B6),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(width: 30),
+                  Text(
+                    'Medication',
+                    style: TextStyle(
+                      color: Color(0xFFA5A8B6),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Spacer(),
+                  DropdownFilter(
+                    selectedValue: 'all',
+                    onDropdownTap: () {
+                      // do minimize the size
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              ReminderCard(
+                time: '7:00',
+                period: 'AM',
+                medicationName: 'Carsil 35mg',
+                dose: '2 tablets',
+                backgroundColor: Color(0x4C779BF0),
+                isCompleted: true,
+                drugDescription: '',
+              ),
+              SizedBox(height: 10),
+              // Add more rows as needed
+              ReminderCard(
+                time: '2:00',
+                period: 'PM',
+                medicationName: 'Vitamin C',
+                dose: 'single tablet for the day',
+                backgroundColor: Color(0x4CA8CB69),
+                isCompleted: true,
+                drugDescription: '',
+              ),
+
+              SizedBox(
+                height: 50,
+              ),
+              ReminderCard(
+                time: '5:00',
+                period: 'PM',
+                medicationName: 'Travaprost eye drops',
+                dose: '1 drop when about to sleep',
+                backgroundColor: Color(0xFFFF9267),
+                isCompleted: false,
+                drugDescription: '',
+              ),
+
+              SizedBox(
+                height: 10,
+              ),
+              ReminderCard(
+                time: '9:00',
+                period: 'PM',
+                medicationName: 'Nomotears eye drops',
+                dose: '4 drops a day',
+                backgroundColor: Color(0x4C779BF0),
+                isCompleted: false,
+                drugDescription: '',
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
