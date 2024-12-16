@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:mediloop/pages/add_medication.dart';
 import 'package:mediloop/pages/drug_description_1.dart';
@@ -7,10 +9,10 @@ import 'package:mediloop/pages/homepage.dart';
 import 'package:mediloop/screens/onboarding_screens.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const Size(375, 667);
     return MaterialApp(
       // Set the initial route to onboarding
       initialRoute: '/',

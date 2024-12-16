@@ -1,5 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, unused_element, prefer_final_fields, unused_local_variable
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mediloop/widgets/drugdetails_Schedule_Card.dart';
 
@@ -12,17 +13,62 @@ class AddMedication extends StatefulWidget {
 }
 
 class _AddMedicationState extends State<AddMedication> {
-  String _selectedType = ''; // Track the selected type
+// State Variables
+  String _selectedTime = "07:00 AM"; // Default selected time 1
+  String _selectedTime2 = "09:00 PM"; // Default selected time 2
+  String? _medicationTime; // For the single dynamic ScheduleCard
 
-  void _showTimePicker(BuildContext context) {
-    showTimePicker(
+  List<String> _medicationTimes = []; // Replace _medicationTime
+
+  void _addMedicationTime(String time) {
+    setState(() {
+      _medicationTimes.add(time);
+    });
+  }
+
+  void _pickTime(BuildContext context, Function(String) onTimeChanged) {
+    showCupertinoModalPopup(
       context: context,
-      initialTime: TimeOfDay.now(),
+      builder: (_) => Container(
+        height: 260,
+        color: Colors.white,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.time,
+                initialDateTime: DateTime.now(),
+                onDateTimeChanged: (DateTime newDateTime) {
+                  int hour = newDateTime.hour % 12 == 0
+                      ? 12
+                      : newDateTime.hour % 12; // Convert to 12-hour format
+                  String period = newDateTime.hour >= 12 ? 'PM' : 'AM';
+                  String minute = newDateTime.minute.toString().padLeft(2, '0');
+                  String formattedTime = '$hour:$minute $period';
+                  onTimeChanged(formattedTime); // Callback to update the time
+                },
+              ),
+            ),
+            CupertinoButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double paddingHorizontal = size.width * 0.05; // 5% of screen width
+    final double iconSize = size.width * 0.10; // 8% of screen width
+    final double textSize = size.width * 0.04; // 4% of screen width
+    final double spacing = size.height * 0.01; // 1% of screen height
     return GestureDetector(
       onTap: () {
         // Dismiss the keyboard when the user taps outside
@@ -95,7 +141,7 @@ class _AddMedicationState extends State<AddMedication> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedType = 'Capsule'; // Set selected type
+                        _selectedTime = 'Capsule'; // Set selected type
                       });
                     },
                     child: Stack(
@@ -106,7 +152,7 @@ class _AddMedicationState extends State<AddMedication> {
                             width: 106.37,
                             height: 105,
                             decoration: ShapeDecoration(
-                              color: _selectedType == 'Capsule'
+                              color: _selectedTime == 'Capsule'
                                   ? Color(0xFFF1F9E9) // Highlighted color
                                   : Color(0xFFF6F6F6),
                               shape: RoundedRectangleBorder(
@@ -140,7 +186,7 @@ class _AddMedicationState extends State<AddMedication> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedType = 'Tablet'; // Set selected type
+                        _selectedTime = 'Tablet'; // Set selected type
                       });
                     },
                     child: Stack(
@@ -149,7 +195,7 @@ class _AddMedicationState extends State<AddMedication> {
                           width: 106.37,
                           height: 105,
                           decoration: ShapeDecoration(
-                            color: _selectedType == 'Tablet'
+                            color: _selectedTime == 'Tablet'
                                 ? Color(0xFFE2EAFE) // Highlighted color
                                 : Color(0xFFF6F6F6),
                             shape: RoundedRectangleBorder(
@@ -182,7 +228,7 @@ class _AddMedicationState extends State<AddMedication> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedType = 'Drop'; // Set selected type
+                        _selectedTime = 'Drop'; // Set selected type
                       });
                     },
                     child: Stack(
@@ -191,7 +237,7 @@ class _AddMedicationState extends State<AddMedication> {
                           width: 106.37,
                           height: 105,
                           decoration: ShapeDecoration(
-                            color: _selectedType == 'Drop'
+                            color: _selectedTime == 'Drop'
                                 ? Color(0xFFFFDBDB) // Highlighted color
                                 : Color(0xFFF6F6F6),
                             shape: RoundedRectangleBorder(
@@ -306,43 +352,79 @@ class _AddMedicationState extends State<AddMedication> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: Row(
-                  children: [
-                    // Add Medication Button
-                    GestureDetector(
-                      onTap: () => _showTimePicker(context),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 6, horizontal: 11),
-                        child: Container(
-                          width: 36,
-                          height: 36,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEAEDEE),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.add,
-                              size: 24,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      // Add Medication Button
+                      GestureDetector(
+                        onTap: () => _pickTime(
+                          context,
+                          (newTime) {
+                            setState(() {
+                              // Set the dynamically added time
+                              _medicationTime = newTime;
+                            });
+                          },
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 6, horizontal: 11),
+                          child: Container(
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFEAEDEE),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Center(
+                              child: Icon(Icons.add, size: 24),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () => _showTimePicker(context),
-                      child: ScheduleCard(time: '07:00-09:00'),
-                    ),
-                    SizedBox(width: 20),
-                    GestureDetector(
-                      onTap: () => _showTimePicker(context),
-                      child: ScheduleCard(time: '19:00-21:00'),
-                    ),
-                  ],
+
+                      SizedBox(width: 10),
+
+                      // Single Dynamic ScheduleCard (if exists)
+                      if (_medicationTime !=
+                          null) // Check if the dynamic time exists
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: GestureDetector(
+                            onTap: () => _pickTime(context, (newTime) {
+                              setState(() {
+                                _medicationTime =
+                                    newTime; // Update the dynamic time
+                              });
+                            }),
+                            child: ScheduleCard(time: _medicationTime!),
+                          ),
+                        ),
+
+                      // First Default ScheduleCard
+                      GestureDetector(
+                        onTap: () => _pickTime(context, (time) {
+                          setState(() {
+                            _selectedTime = time; // Update _selectedTime
+                          });
+                        }),
+                        child: ScheduleCard(time: _selectedTime),
+                      ),
+
+                      SizedBox(width: 10),
+
+                      // Second Default ScheduleCard
+                      GestureDetector(
+                        onTap: () => _pickTime(context, (time) {
+                          setState(() {
+                            _selectedTime2 = time; // Update _selectedTime2
+                          });
+                        }),
+                        child: ScheduleCard(time: _selectedTime2),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(

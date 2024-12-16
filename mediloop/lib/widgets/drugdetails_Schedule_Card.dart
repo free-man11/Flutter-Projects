@@ -1,10 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 
 class ScheduleCard extends StatelessWidget {
   final String time;
-  const ScheduleCard({required this.time});
+  const ScheduleCard({super.key, required this.time});
 
   @override
   Widget build(BuildContext context) {

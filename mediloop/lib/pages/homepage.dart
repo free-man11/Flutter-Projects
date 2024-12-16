@@ -37,13 +37,13 @@ class _HomepageState extends State<Homepage> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(
-            bottom: 5, left: 5), // Add padding from the bottom
+            bottom: 5, left: 10, right: 10), // Add padding from the bottom
         child: SafeArea(
           child: GNav(
             selectedIndex: _selectedIndex, // Keeps track of the selected tab
-            tabBorderRadius: 20,
+            tabBorderRadius: 25,
             onTabChange: _navigationBottomBar, // Update tab on selection
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
             color: const Color.fromARGB(255, 6, 3, 3), // Unselected item color
             activeColor: Colors.black, // Selected item color

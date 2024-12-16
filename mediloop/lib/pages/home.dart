@@ -18,25 +18,29 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double paddingHorizontal = size.width * 0.05; // 5% of screen width
+    final double iconSize = size.width * 0.10; // 8% of screen width
+    final double textSize = size.width * 0.04; // 4% of screen width
+    final double spacing = size.height * 0.01; // 1% of screen height
+
     return ListView(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 21),
+          padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 8),
+              SizedBox(height: spacing),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ProfileIcon(initials: 'PF'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20),
-                  ),
+                  SizedBox(height: spacing),
                   Container(
-                    margin: EdgeInsets.only(top: 20),
-                    width: 36,
-                    height: 36,
+                    margin: EdgeInsets.only(top: spacing * 2),
+                    width: iconSize,
+                    height: iconSize,
                     decoration: BoxDecoration(
                       color: Color(0xFFEAEDEE),
                       borderRadius: BorderRadius.circular(10),
@@ -49,14 +53,14 @@ class _HomeState extends State<Home> {
                           arguments: {'showBackButton': true},
                         );
                       },
-                      child: Icon(Icons.add, size: 24),
+                      child: Icon(Icons.add, size: iconSize * 0.7),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: spacing * 2),
               Headers(date: 'January 3', title: "Today's Reminder"),
-              SizedBox(height: 10),
+              SizedBox(height: spacing * 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -64,13 +68,13 @@ class _HomeState extends State<Home> {
                           day,
                           style: TextStyle(
                             color: Color(0xFFA5A8B6),
-                            fontSize: 15,
+                            fontSize: textSize,
                             fontWeight: FontWeight.w500,
                           ),
                         ))
                     .toList(),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: spacing),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(7, (index) {
@@ -82,8 +86,8 @@ class _HomeState extends State<Home> {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      width: 26,
-                      height: 26,
+                      width: size.width * 0.07, // 7% of screen width
+                      height: size.width * 0.07, // Square
                       decoration: BoxDecoration(
                         color: _selectedDayIndex == index
                             ? Color(0xFF6085EA)
@@ -96,7 +100,7 @@ class _HomeState extends State<Home> {
                           color: _selectedDayIndex == index
                               ? Colors.white
                               : Colors.black,
-                          fontSize: 15,
+                          fontSize: textSize,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -104,23 +108,23 @@ class _HomeState extends State<Home> {
                   );
                 }),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: spacing * 2),
               Row(
                 children: [
                   Text(
                     'Time',
                     style: TextStyle(
                       color: Color(0xFFA5A8B6),
-                      fontSize: 15,
+                      fontSize: textSize,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(width: 30),
+                  SizedBox(width: size.width * 0.1),
                   Text(
                     'Medication',
                     style: TextStyle(
                       color: Color(0xFFA5A8B6),
-                      fontSize: 15,
+                      fontSize: textSize,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -133,7 +137,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              SizedBox(height: 12),
+              SizedBox(height: spacing * 1.5),
               ReminderCard(
                 time: '7:00',
                 period: 'AM',
@@ -143,8 +147,7 @@ class _HomeState extends State<Home> {
                 isCompleted: true,
                 drugDescription: '',
               ),
-              SizedBox(height: 10),
-              // Add more rows as needed
+              SizedBox(height: spacing * 2),
               ReminderCard(
                 time: '2:00',
                 period: 'PM',
@@ -154,10 +157,7 @@ class _HomeState extends State<Home> {
                 isCompleted: true,
                 drugDescription: '',
               ),
-
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: spacing * 5),
               ReminderCard(
                 time: '5:00',
                 period: 'PM',
@@ -167,10 +167,7 @@ class _HomeState extends State<Home> {
                 isCompleted: false,
                 drugDescription: '',
               ),
-
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: spacing * 2),
               ReminderCard(
                 time: '9:00',
                 period: 'PM',

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, avoid_print, sized_box_for_whitespace
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mediloop/widgets/drugdetails_Cards_Tiles.dart';
 import 'package:mediloop/widgets/drugdetails_Schedule_Card.dart';
@@ -13,11 +14,44 @@ class DrugDescription1 extends StatefulWidget {
 }
 
 class _DrugDescriptionState extends State<DrugDescription1> {
-  // TIME PICKER
-  void _showTimePicker() {
-    showTimePicker(
+  String _selectedTime = "06:00 AM"; // Default selected time 1
+  String _selectedTime2 = "09:00 PM"; // Default selected time 2
+
+  void _pickTime(BuildContext context, Function(String) onTimeChanged) {
+    showCupertinoModalPopup(
       context: context,
-      initialTime: TimeOfDay.now(),
+      builder: (_) => Container(
+        height: 260,
+        color: Colors.white,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.time,
+                initialDateTime: DateTime.now(),
+                onDateTimeChanged: (DateTime newDateTime) {
+                  int hour = newDateTime.hour % 12 == 0
+                      ? 12
+                      : newDateTime.hour % 12; // Convert to 12-hour format
+                  String period = newDateTime.hour >= 12 ? 'PM' : 'AM';
+                  String minute = newDateTime.minute.toString().padLeft(2, '0');
+                  String formattedTime = '$hour:$minute $period';
+                  onTimeChanged(formattedTime); // Callback to update the time
+                },
+              ),
+            ),
+            CupertinoButton(
+              child: Text(
+                'Done',
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -132,16 +166,27 @@ class _DrugDescriptionState extends State<DrugDescription1> {
                         SizedBox(height: 10),
                         Row(
                           children: [
+                            // First Default ScheduleCard
                             GestureDetector(
-                              // TIME PICKER
-                              onTap: _showTimePicker,
-                              child: ScheduleCard(time: '07:00-09:00'),
+                              onTap: () => _pickTime(context, (time) {
+                                setState(() {
+                                  _selectedTime = time; // Update _selectedTime
+                                });
+                              }),
+                              child: ScheduleCard(time: _selectedTime),
                             ),
-                            SizedBox(width: 20),
+
+                            SizedBox(width: 10),
+
+                            // Second Default ScheduleCard
                             GestureDetector(
-                              // TIME PICKER
-                              onTap: _showTimePicker,
-                              child: ScheduleCard(time: '19:00-21:00'),
+                              onTap: () => _pickTime(context, (time) {
+                                setState(() {
+                                  _selectedTime2 =
+                                      time; // Update _selectedTime2
+                                });
+                              }),
+                              child: ScheduleCard(time: _selectedTime2),
                             ),
                           ],
                         ),
@@ -247,7 +292,7 @@ class _DrugDescriptionState extends State<DrugDescription1> {
                           child: Transform.scale(
                             scale: 1.5,
                             child: Image.asset(
-                              'lib/assets/flowers.png', // Path to your image
+                              'lib/assets/blue flowers.png', // Path to your image
                               width: 400, // Adjust width
                               height: 400, // Adjust height
                             ),
