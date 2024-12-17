@@ -67,10 +67,7 @@ class _DrugDescriptionState extends State<DrugDescription2> {
                   Icons.more_horiz, // Replace with your desired icon
                   color: Color(0xFF222329),
                 ),
-                onPressed: () {
-                  // Define what happens when the icon is tapped
-                  print('Notification icon pressed');
-                },
+                onPressed: () {},
               ),
             ],
           ),

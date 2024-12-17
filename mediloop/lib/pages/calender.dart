@@ -13,6 +13,7 @@ class Calender extends StatefulWidget {
 }
 
 class _HomeState extends State<Calender> {
+  int _selectedDayIndex = 3;
   bool isActive = true; // Default to showing Active
   @override
   Widget build(BuildContext context) {
@@ -62,15 +63,51 @@ class _HomeState extends State<Calender> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-                    .map((day) => Text(
-                          day,
-                          style: TextStyle(
-                            color: Color(0xFFA5A8B6),
-                            fontSize: textSize,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ))
+                    .map(
+                      (day) => Text(
+                        day,
+                        style: TextStyle(
+                          color: Color(0xFFA5A8B6),
+                          fontSize: textSize,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )
                     .toList(),
+              ),
+              SizedBox(height: spacing),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(7, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedDayIndex = index;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: size.width * 0.07, // 7% of screen width
+                      height: size.width * 0.07, // Square
+                      decoration: BoxDecoration(
+                        color: _selectedDayIndex == index
+                            ? Color(0xFF6085EA)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        '${index + 1}',
+                        style: TextStyle(
+                          color: _selectedDayIndex == index
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: textSize,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
               ),
               SizedBox(height: spacing),
               SizedBox(height: spacing * 2),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class CalenderRemindercard extends StatelessWidget {
   final String medicationName;
-
   final String dose;
   final Color backgroundColor;
   final bool isCompleted;
