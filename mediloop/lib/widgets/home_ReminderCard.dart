@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class ReminderCard extends StatelessWidget {
@@ -59,7 +61,7 @@ class ReminderCard extends StatelessWidget {
           height: 59, // Match the height of the container
 
           child: VerticalDivider(
-            color: Color(0xFF405FE3),
+            color: Color.fromARGB(255, 198, 198, 199),
             // Set divider color
             thickness: 2, // Set the thickness of the divider
             width: 20, // Space between the divider and the text
