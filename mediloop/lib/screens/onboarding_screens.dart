@@ -44,55 +44,50 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
 
           // Navigation controls (e.g., Skip, Done, Page Indicator)
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10), // Add some padding
-            child: Container(
-              alignment: Alignment(0, 0.95), // Position near the bottom center
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Page Indicator
-                  SmoothPageIndicator(
-                    controller: _controller, // Connect to PageController
-                    effect: ExpandingDotsEffect(
-                      expansionFactor: 2,
-                      dotWidth: 16,
-                      dotHeight: 8,
-                      dotColor: Color(0xFFD9D9D9),
-                      activeDotColor: Color.fromARGB(255, 99, 144, 255),
-                    ),
-
-                    count: 3, // Number of onboarding pages
+            padding: EdgeInsets.only(left: 20, right: 20, top: 630),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Page Indicator
+                SmoothPageIndicator(
+                  controller: _controller, // Connect to PageController
+                  effect: ExpandingDotsEffect(
+                    expansionFactor: 2,
+                    dotWidth: 16,
+                    dotHeight: 8,
+                    dotColor: Color(0xFFD9D9D9),
+                    activeDotColor: Color.fromARGB(255, 99, 144, 255),
                   ),
 
-                  // Skip or Done Button
-                  onLastPage
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.pushReplacementNamed(
-                                context, '/Homepage');
-                          },
-                          child: Text('Done',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF6085EA),
-                              )),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            // Skip to the last page
-                            _controller.jumpToPage(2);
-                          },
-                          child: Text(
-                            'Skip',
+                  count: 3, // Number of onboarding pages
+                ),
+
+                // Skip or Done Button
+                onLastPage
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(context, '/Homepage');
+                        },
+                        child: Text('Done',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF6085EA),
-                            ),
+                            )),
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          // Skip to the last page
+                          _controller.jumpToPage(2);
+                        },
+                        child: Text(
+                          'Skip',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF6085EA),
                           ),
                         ),
-                ],
-              ),
+                      ),
+              ],
             ),
           ),
         ],
