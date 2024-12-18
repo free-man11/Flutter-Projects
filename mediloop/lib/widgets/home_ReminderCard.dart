@@ -34,7 +34,7 @@ class ReminderCard extends StatelessWidget {
                 text: '$time\n',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 22,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
                   height: 1,
