@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/Users/phinehasfreeman/Desktop/mediloop/linux"
+    "cmake.sourceDirectory": "/Users/phinehasfreeman/Desktop/mediloop/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
