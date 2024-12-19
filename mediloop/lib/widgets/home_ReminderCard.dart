@@ -59,7 +59,7 @@ class ReminderCard extends StatelessWidget {
           height: 59, // Match the height of the container
 
           child: VerticalDivider(
-            color: Color(0xFF405FE3),
+            color: Colors.grey.shade400,
             // Set divider color
             thickness: 2, // Set the thickness of the divider
             width: 20, // Space between the divider and the text
