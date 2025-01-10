@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:mediloop/pages/add_medication.dart';
@@ -7,6 +7,7 @@ import 'package:mediloop/pages/drug_description_2.dart';
 import 'package:mediloop/pages/home.dart';
 import 'package:mediloop/pages/homepage.dart';
 import 'package:mediloop/screens/onboarding_screens.dart';
+import 'package:device_preview/device_preview.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,6 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const Size(375, 667);
     return MaterialApp(
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       // Set the initial route to onboarding
       initialRoute: '/',
       routes: {

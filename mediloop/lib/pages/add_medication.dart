@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mediloop/pages/pill_Reminder_prompt.dart';
 import 'package:mediloop/widgets/add_Medication_Date_Picker.dart';
 import 'package:mediloop/widgets/drugdetails_Schedule_Card.dart';
 
@@ -480,15 +481,62 @@ class _AddMedicationState extends State<AddMedication> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
+                  // showModalBottomSheet(
+                  //   context: context,
+                  //   isScrollControlled: true,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius:
+                  //         BorderRadius.vertical(top: Radius.circular(20)),
+                  //   ),
+                  //   backgroundColor: Colors.black,
+                  //   builder: (BuildContext context) {
+                  //     return PillReminderPrompt(
+                  //       previousPill: 'Carsil 20 mg',
+                  //       nextPill: 'Roaccutane 30 mg',
+                  //       timeLeft: 'in 19 min',
+                  //       nextPillTime: '08:00',
+                  //     );
+                  //   },
+                  // );
                   child: Center(
-                    child: Text(
-                      'Next',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                        height: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        showGeneralDialog(
+                          context: context,
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            // Your dialog content
+                            return Align(
+                              alignment:
+                                  Alignment.topCenter, // Position at the top
+                              child: PillReminderPrompt(
+                                previousPill: 'Carsil 20 mg',
+                                nextPill: 'Roaccutane 30 mg',
+                                timeLeft: 'in 19 min',
+                                nextPillTime: '08:00',
+                              ),
+                            );
+                          },
+                          transitionDuration:
+                              Duration(milliseconds: 1000), // Transition speed
+                          transitionBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                begin: Offset(0, -1), // Start above the screen
+                                end: Offset(0, 0), // End at the top
+                              ).animate(animation),
+                              child: child,
+                            );
+                          },
+                        );
+                      },
+                      child: Text(
+                        'Next',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                   ),
