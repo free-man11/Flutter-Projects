@@ -6,7 +6,6 @@ import 'package:mediloop/pages/drug_description_1.dart';
 import 'package:mediloop/pages/drug_description_2.dart';
 import 'package:mediloop/pages/home.dart';
 import 'package:mediloop/pages/homepage.dart';
-import 'package:mediloop/screens/onboarding_screens.dart';
 import 'package:device_preview/device_preview.dart';
 
 class MyApp extends StatelessWidget {
@@ -21,8 +20,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) =>
-            OnboardingScreens(), // Onboarding screen as the starting point
-        '/Homepage': (context) => Homepage(), // Main homepage with tabs
+            // OnboardingScreens(), // Onboarding screen as the starting point
+            // '/Homepage': (context) =>
+            Homepage(), // Main homepage with tabs
         '/Home': (context) => Home(), // Home page
         '/add': (context) => AddMedication(), // Add Medication screen
         '/drug1': (context) => DrugDescription1(), // Drug Description screen

@@ -35,11 +35,11 @@ class PillReminderPrompt extends StatelessWidget {
                 child: Container(
                   height: 28,
                   width: 28,
-                  color: Colors.white,
+                  color: Colors.blue,
                   child: Image.asset(
-                    'lib/assets/capsule.png',
-                    scale: 2,
-                    color: Colors.blue,
+                    'lib/assets/Vector.png',
+                    scale: 1,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -48,108 +48,148 @@ class PillReminderPrompt extends StatelessWidget {
                 'Pill reminder',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
                   decoration: TextDecoration.none, // Ensure no underline
                 ),
               ),
               Spacer(),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
+                width: 82,
+                height: 28,
+                decoration: ShapeDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  timeLeft,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.none, // Ensure no underline
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(29),
                   ),
                 ),
-              ),
+                child: Center(
+                  child: Text(
+                    'in 19 min',
+                    style: TextStyle(
+                      decoration: TextDecoration.none, // Ensure no underline
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
           SizedBox(height: 16),
           Text(
-            'Previous pill: $previousPill',
+            'Previous pill: Carsil 20 mg',
+            textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
+              color: Color(0xFFA5A8B6),
+              fontSize: 17,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w400,
               decoration: TextDecoration.none, // Ensure no underline
             ),
           ),
           SizedBox(height: 8),
           Row(
             children: [
-              Text(
-                'Next pill: ',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  decoration: TextDecoration.none, // Ensure no underline
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Next pill:',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.none, // Ensure no underline
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' Roaccutane 30 mg',
+                      style: TextStyle(
+                        color: Color(0xFF5161F8),
+                        fontSize: 17,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.none, // Ensure no underline
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                nextPill,
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.none, // Ensure no underline
-                ),
-              ),
-              Spacer(),
-              Text(
-                nextPillTime,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  decoration: TextDecoration.none, // Ensure no underline
-                ),
-              ),
+                textAlign: TextAlign.center,
+              )
             ],
           ),
           SizedBox(height: 16),
           Row(
             children: [
               Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context); // Dismiss the prompt
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[800],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    width: 147,
+                    height: 40,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFFC7D0FC),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(color: Colors.white),
+                    child: Center(
+                      child: Text(
+                        'Skip',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          decoration:
+                              TextDecoration.none, // Ensure no underline
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-              SizedBox(width: 16),
+              SizedBox(
+                width: 16,
+              ),
               Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context); // Add custom action here
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    width: 147,
+                    height: 40,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFF5161F8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Take',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          decoration:
+                              TextDecoration.none, // Ensure no underline
+                        ),
+                      ),
                     ),
                   ),
-                  child: Text(
-                    'Take',
-                    style: TextStyle(color: Colors.white),
-                  ),
                 ),
-              ),
+              )
             ],
           ),
         ],

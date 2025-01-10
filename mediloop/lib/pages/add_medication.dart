@@ -1,8 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, unused_element, prefer_final_fields, unused_local_variable
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, unused_element, prefer_final_fields, unused_local_variable, use_build_context_synchronously
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mediloop/pages/pill_Reminder_prompt.dart';
+import 'package:mediloop/pages/pill_Prompt_Page.dart';
+
 import 'package:mediloop/widgets/add_Medication_Date_Picker.dart';
 import 'package:mediloop/widgets/drugdetails_Schedule_Card.dart';
 
@@ -472,65 +473,31 @@ class _AddMedicationState extends State<AddMedication> {
                 ),
               ),
               Center(
-                child: Container(
-                  width: 335,
-                  height: 44,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFF3853E0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                child: GestureDetector(
+                  onTap: () async {
+                    // Delay before navigation
+                    await Future.delayed(Duration(milliseconds: 200));
+
+                    // Navigate to the new page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PillPromptPage()), // Replace with your new page
+                    ).then(
+                      (_) {},
+                    );
+                  },
+                  child: Container(
+                    width: 335,
+                    height: 44,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFF3853E0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                  ),
-                  // showModalBottomSheet(
-                  //   context: context,
-                  //   isScrollControlled: true,
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius:
-                  //         BorderRadius.vertical(top: Radius.circular(20)),
-                  //   ),
-                  //   backgroundColor: Colors.black,
-                  //   builder: (BuildContext context) {
-                  //     return PillReminderPrompt(
-                  //       previousPill: 'Carsil 20 mg',
-                  //       nextPill: 'Roaccutane 30 mg',
-                  //       timeLeft: 'in 19 min',
-                  //       nextPillTime: '08:00',
-                  //     );
-                  //   },
-                  // );
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        showGeneralDialog(
-                          context: context,
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) {
-                            // Your dialog content
-                            return Align(
-                              alignment:
-                                  Alignment.topCenter, // Position at the top
-                              child: PillReminderPrompt(
-                                previousPill: 'Carsil 20 mg',
-                                nextPill: 'Roaccutane 30 mg',
-                                timeLeft: 'in 19 min',
-                                nextPillTime: '08:00',
-                              ),
-                            );
-                          },
-                          transitionDuration:
-                              Duration(milliseconds: 1000), // Transition speed
-                          transitionBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return SlideTransition(
-                              position: Tween<Offset>(
-                                begin: Offset(0, -1), // Start above the screen
-                                end: Offset(0, 0), // End at the top
-                              ).animate(animation),
-                              child: child,
-                            );
-                          },
-                        );
-                      },
+                    child: Center(
                       child: Text(
                         'Next',
                         style: TextStyle(
@@ -541,7 +508,7 @@ class _AddMedicationState extends State<AddMedication> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
