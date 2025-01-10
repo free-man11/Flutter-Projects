@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               SizedBox(height: spacing * 2),
-              Headers(date: 'January 3', title: "Today's Reminder"),
+              Headers(date: 'January 4', title: "Today's Reminder"),
               SizedBox(height: spacing * 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

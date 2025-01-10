@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mediloop/widgets/add_Medication_Date_Picker.dart';
 import 'package:mediloop/widgets/drugdetails_Schedule_Card.dart';
 
 class AddMedication extends StatefulWidget {
@@ -14,7 +15,7 @@ class AddMedication extends StatefulWidget {
 
 class _AddMedicationState extends State<AddMedication> {
 // State Variables
-  String _selectedTime = "07:00 AM"; // Default selected time 1
+  String _selectedTime = "00:00 AM"; // Default selected time 1
   String _selectedTime2 = "09:00 PM"; // Default selected time 2
   String? _medicationTime; // For the single dynamic ScheduleCard
 
@@ -430,108 +431,28 @@ class _AddMedicationState extends State<AddMedication> {
               SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Container(
-                  width: 335,
-                  height: 44,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFF6F6F6),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7)),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 15,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Duration',
-                          style: TextStyle(
-                            color: Color(0xFFA5A8B6),
-                            fontSize: 13,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 160),
-                          child: Text(
-                            '6 months',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 13,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(),
-                          child: Icon(Icons.keyboard_arrow_right,
-                              color: Color(0xFFA5A8B6)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              AddMedicationDatePicker(
+                selectedDuration: '1 month',
+                onDurationSelected: (String newDuration) {
+                  setState(() {
+                    var selectedDuration =
+                        newDuration; // Update the value on selection
+                  });
+                },
+                text_Duration: 'Duration',
               ),
               SizedBox(
                 height: 15,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Container(
-                  width: 335,
-                  height: 44,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFF6F6F6),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7)),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 15,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Frequecy',
-                          style: TextStyle(
-                            color: Color(0xFFA5A8B6),
-                            fontSize: 13,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 160),
-                          child: Text(
-                            '6 months',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 13,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(),
-                          child: Icon(Icons.keyboard_arrow_right,
-                              color: Color(0xFFA5A8B6)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              AddMedicationDatePicker(
+                selectedDuration: '6 month',
+                onDurationSelected: (String newDuration) {
+                  setState(() {
+                    var selectedDuration =
+                        newDuration; // Update the value on selection
+                  });
+                },
+                text_Duration: 'Frequency',
               ),
               SizedBox(
                 height: 12,
