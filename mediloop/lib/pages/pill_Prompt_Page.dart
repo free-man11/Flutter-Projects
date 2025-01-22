@@ -113,7 +113,7 @@ class PillPromptPage extends StatelessWidget {
         );
       },
       transitionDuration:
-          const Duration(milliseconds: 3000), // Transition speed
+          const Duration(milliseconds: 1000), // Transition speed
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(
           position: Tween<Offset>(
