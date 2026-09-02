@@ -84,3 +84,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 
+## Getting Started
+
+### Clone a Specific Project
+To download only the specific project you want to work on instead of the entire repo:
+
+```bash
+git clone --depth 1 --filter=blob:none --sparse [https://github.com/free-man11/Flutter-Projects.git](https://github.com/free-man11/Flutter-Projects.git)
+cd Flutter-Projects
+git sparse-checkout set <project-folder-name>
